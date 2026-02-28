@@ -86,7 +86,7 @@ export default function Admissions() {
       <Navbar />
       <section className="hero-gradient text-white py-14">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <Badge className="mb-4 bg-secondary/90 text-secondary-foreground border-0">2024-25 Admissions</Badge>
+          <Badge className="mb-4 bg-secondary/90 text-secondary-foreground border-0">2026-27 Admissions</Badge>
           <h1 className="text-4xl font-bold mb-3">Online Admission Form</h1>
           <p className="text-white/80 text-lg">Apply for admission to S.N. Public School, Pindra</p>
         </div>

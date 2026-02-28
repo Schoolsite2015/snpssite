@@ -14,12 +14,12 @@ const values = [
 ];
 
 const milestones = [
-  { year: "2009", event: "School established in Pindra, Varanasi" },
-  { year: "2012", event: "Expanded to secondary classes (9th & 10th)" },
+  { year: "2015", event: "School established in Pindra, Varanasi" },
   { year: "2016", event: "New science laboratory inaugurated" },
+  { year: "2017", event: "Computer lab and digital classroom setup" },
   { year: "2019", event: "Achieved 100% board examination results" },
-  { year: "2021", event: "Computer lab and digital classroom setup" },
-  { year: "2024", event: "Online admission system launched" },
+  { year: "2021", event: "Expanded our school in covid-19 also added online classes" },
+  { year: "2025", event: "Setup smartclasses, added TATAclasses, Expanded to secondary classes (9th & 10th)" },
 ];
 
 export default function About() {
