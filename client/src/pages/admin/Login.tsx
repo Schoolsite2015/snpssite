@@ -23,7 +23,7 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [showPw, setShowPw] = useState(false);
 
-  const form = useForm<FormData>({ resolver: zodResolver(schema), defaultValues: { email: "admin@stsnpublicschool.com", password: "admin123" } });
+  const form = useForm<FormData>({ resolver: zodResolver(schema), defaultValues: { email: "admin@stsnpublicschool.com", password: "@Anjani123" } });
 
   const onSubmit = async (data: FormData) => {
     setLoading(true);
