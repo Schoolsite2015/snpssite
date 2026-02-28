@@ -46,7 +46,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 relative z-10">
           <div className="max-w-3xl">
             <Badge className="mb-4 bg-secondary/90 text-secondary-foreground border-0">
-              Admissions Open 2024-25
+              Admissions Open 2026-27
             </Badge>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-4">
               S.N. Public School
@@ -184,7 +184,7 @@ export default function Home() {
       <section className="hero-gradient text-white py-16">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Ready to Join Our School Family?</h2>
-          <p className="text-white/80 mb-8 text-lg">Enrol your child in one of Varanasi's leading schools. Limited seats available for 2024-25.</p>
+          <p className="text-white/80 mb-8 text-lg">Enrol your child in one of Varanasi's leading schools. Limited seats available for 2026-27.</p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Link href="/admissions">
               <Button size="lg" variant="secondary" className="gap-2">

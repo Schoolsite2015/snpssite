@@ -84,9 +84,7 @@ export default function Login() {
                 {loading ? "Signing in..." : "Sign In"}
               </Button>
             </form>
-            <p className="text-xs text-muted-foreground text-center mt-4">
-              Default: admin@stsnpublicschool.com / admin123
-            </p>
+
           </CardContent>
         </Card>
       </div>

@@ -17,7 +17,7 @@ import type { Exam } from "@shared/schema";
 const CLASSES = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
 const SUBJECTS = ["Mathematics", "Science", "Hindi", "English", "Social Studies", "Sanskrit", "Computer"];
 
-const emptyExam = { name: "", class: "1", subject: "Mathematics", examDate: "", totalMarks: 100, passingMarks: 33, academicYear: "2024-25" };
+const emptyExam = { name: "", class: "1", subject: "Mathematics", examDate: "", totalMarks: 100, passingMarks: 33, academicYear: "2026-27" };
 
 export default function Exams() {
   const [exams, setExams] = useState<Exam[]>([]);

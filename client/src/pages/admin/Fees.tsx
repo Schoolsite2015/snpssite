@@ -25,7 +25,7 @@ export default function Fees() {
   const [showStructureModal, setShowStructureModal] = useState(false);
   const [students, setStudents] = useState<any[]>([]);
   const [paymentForm, setPaymentForm] = useState({ studentId: "", month: "", year: new Date().getFullYear(), amount: "", status: "paid", paymentMethod: "cash" });
-  const [structureForm, setStructureForm] = useState({ class: "1", academicYear: "2024-25", tuitionFee: "", admissionFee: "", examFee: "", sportsFee: "", libraryFee: "" });
+  const [structureForm, setStructureForm] = useState({ class: "1", academicYear: "2026-27", tuitionFee: "", admissionFee: "", examFee: "", sportsFee: "", libraryFee: "" });
   const [saving, setSaving] = useState(false);
   const { toast } = useToast();
 

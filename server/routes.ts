@@ -140,14 +140,14 @@ async function seedDatabase() {
     const existingNews = await storage.getNews();
     if (existingNews.length === 0) {
       await storage.createNews({
-        title: "Admission Open for Academic Year 2024-25",
+        title: "Admission Open for Academic Year 2026-27",
         content: "S.N. Public School is pleased to announce admissions for classes Nursery to 10th. Limited seats available. Apply online now!",
         category: "admission",
         isPublished: true,
       });
       await storage.createNews({
-        title: "Annual Sports Day - February 2024",
-        content: "Our Annual Sports Day will be held on 15th February 2024. All students are encouraged to participate in various sports events.",
+        title: "Annual Sports Day - February 2026",
+        content: "Our Annual Sports Day will be held on 15th February 2026. All students are encouraged to participate in various sports events.",
         category: "event",
         isPublished: true,
       });
