@@ -24,6 +24,8 @@ export const users = pgTable("users", {
 
 // ─── STUDENTS ──────────────────────────────────────────────────────────────────
 export const students = pgTable("students", {
+  penNo: text("pen_no"),
+  aadhaarNo: text("aadhaar_no"),
   id: serial("id").primaryKey(),
   admissionNumber: text("admission_number").notNull().unique(),
   name: text("name").notNull(),
