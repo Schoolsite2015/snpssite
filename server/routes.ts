@@ -789,8 +789,7 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
 
   // await seedDatabase();
   return httpServer;
-}
-// ─── STUDENT PDF EXPORT ───────────────────────────────────────────────
+  // ─── STUDENT PDF EXPORT ───────────────────────────────────────────────
 app.get("/api/students/:id/pdf", authMiddleware, async (req, res) => {
   try {
     const student = await storage.getStudentById(Number(req.params.id));
@@ -844,3 +843,4 @@ app.get("/api/students/:id/pdf", authMiddleware, async (req, res) => {
     res.status(500).json({ message: "Failed to generate PDF" });
   }
 });
+}
