@@ -305,9 +305,17 @@ export const insertTimetableSchema = createInsertSchema(timetable).omit({ id: tr
 export const insertExamSchema = createInsertSchema(exams).omit({ id: true, createdAt: true });
 export const insertMarkSchema = createInsertSchema(marks).omit({ id: true, createdAt: true });
 export const insertFeeStructureSchema = createInsertSchema(feeStructures).omit({ id: true, createdAt: true });
-export const insertFeePaymentSchema = createInsertSchema(feePayments).omit({ id: true, createdAt: true });
+export const insertFeePaymentSchema = createInsertSchema(feePayments)
+  .omit({ id: true, createdAt: true })
+  .extend({
+    paidAt: z.coerce.date().optional(),
+  });
 export const insertStaffSchema = createInsertSchema(staff).omit({ id: true, createdAt: true });
-export const insertSalaryPaymentSchema = createInsertSchema(salaryPayments).omit({ id: true, createdAt: true });
+export const insertSalaryPaymentSchema = createInsertSchema(salaryPayments)
+  .omit({ id: true, createdAt: true })
+  .extend({
+    paidAt: z.coerce.date().optional(),
+  });
 export const insertIncomeSchema = createInsertSchema(income).omit({ id: true, createdAt: true });
 export const insertExpenseSchema = createInsertSchema(expenses).omit({ id: true, createdAt: true });
 export const insertInventorySchema = createInsertSchema(inventory).omit({ id: true, createdAt: true, updatedAt: true });
