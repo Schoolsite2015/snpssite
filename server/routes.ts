@@ -215,7 +215,7 @@ async function seedDatabase() {
       await storage.createUser({
         name: "School Admin",
         email: "admin@stsnpublicschool.com",
-        password: "@Anjani123",
+        password: "@Anjani@1234",
         role: "admin",
         isActive: true,
       });
