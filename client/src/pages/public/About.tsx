@@ -43,7 +43,7 @@ export default function About() {
             <Badge className="mb-3">Our Story</Badge>
             <h2 className="text-3xl font-bold mb-4">15+ Years of Educational Excellence</h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              S.N. Public School was established with a vision to provide quality, affordable education to children in and around Pindra, Varanasi. Since our inception in 2009, we have grown into one of the most trusted educational institutions in the region.
+              S.N. Public School was established with a vision to provide quality, affordable education to children in and around Pindra, Varanasi. Since our inception in 2014, we have grown into one of the most trusted educational institutions in the region.
             </p>
             <p className="text-muted-foreground leading-relaxed mb-4">
               Our school offers classes from Nursery to Class 10th, following the UP Board curriculum. With a team of experienced and dedicated teachers, we ensure every student receives personalized attention and achieves their academic goals.
