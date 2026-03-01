@@ -16,6 +16,7 @@ import jwt from "jsonwebtoken";
 import multer from "multer";
 import path from "path";
 import fs from "fs";
+import PDFDocument from "pdfkit";
 
 const JWT_SECRET = process.env.JWT_SECRET || "snpublicschool_secret_2024";
 
@@ -776,3 +777,57 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
   // await seedDatabase();
   return httpServer;
 }
+// ─── STUDENT PDF EXPORT ───────────────────────────────────────────────
+app.get("/api/students/:id/pdf", authMiddleware, async (req, res) => {
+  try {
+    const student = await storage.getStudentById(Number(req.params.id));
+
+    if (!student) {
+      return res.status(404).json({ message: "Student not found" });
+    }
+
+    const doc = new PDFDocument({ margin: 50 });
+
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader(
+      "Content-Disposition",
+      `attachment; filename=student-${student.admissionNumber}.pdf`
+    );
+
+    doc.pipe(res);
+
+    // School Header
+    doc
+      .fontSize(22)
+      .text("S.N. Public School", { align: "center" });
+
+    doc
+      .fontSize(16)
+      .text("Student Profile Report", { align: "center" });
+
+    doc.moveDown(2);
+
+    // Student Details
+    doc.fontSize(12);
+
+    doc.text(`Admission Number: ${student.admissionNumber}`);
+    doc.text(`Name: ${student.name}`);
+    doc.text(`Father Name: ${student.fatherName}`);
+    doc.text(`Mother Name: ${student.motherName}`);
+    doc.text(`Date of Birth: ${student.dob}`);
+    doc.text(`Gender: ${student.gender}`);
+    doc.text(`Class: ${student.class}`);
+    doc.text(`Section: ${student.section}`);
+    doc.text(`Roll Number: ${student.rollNumber || "-"}`);
+    doc.text(`Phone: ${student.phone}`);
+    doc.text(`Email: ${student.email || "-"}`);
+    doc.text(`PEN No: ${student.penNo || "-"}`);
+    doc.text(`Aadhaar No: ${student.aadhaarNo || "-"}`);
+    doc.text(`Address: ${student.address}`);
+
+    doc.end();
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Failed to generate PDF" });
+  }
+});
