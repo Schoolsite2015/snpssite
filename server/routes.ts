@@ -381,10 +381,19 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
     }
   });
 
-  app.put(api.attendance.update.path, authMiddleware, async (req, res) => {
-    const result = await storage.updateAttendance(Number(req.params.id), req.body);
+  app.put(api.news.update.path, authMiddleware, async (req, res) => {
+  try {
+    const updateData = { ...req.body };
+    // Convert date string to a proper Date object to prevent toISOString errors
+    if (updateData.date) {
+      updateData.date = new Date(updateData.date);
+    }
+    const result = await storage.updateNews(Number(req.params.id), updateData);
     res.json(result);
-  });
+  } catch (err) {
+    res.status(500).json({ message: "Failed to update notice" });
+  }
+});
 
   // ─── TIMETABLE ─────────────────────────────────────────────────────────────
   app.get(api.timetable.list.path, authMiddleware, async (req, res) => {
