@@ -97,7 +97,7 @@ export default function Home() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <Badge className="mb-3">About Our School</Badge>
-            <h2 className="text-3xl font-bold text-foreground mb-4">Excellence in Education Since 2009</h2>
+            <h2 className="text-3xl font-bold text-foreground mb-4">Excellence in Education Since 2015</h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
               S.N. Public School is a premier educational institution situated on the Varanasi–Lucknow Road in Pindra. We are committed to providing quality education that nurtures academic brilliance alongside character development.
             </p>
