@@ -509,11 +509,24 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
 
   app.post(api.fees.createPayment.path, authMiddleware, async (req: any, res) => {
     try {
-      const data = insertFeePaymentSchema.parse({ ...req.body, collectedBy: req.user.id });
+      const paymentData = { ...req.body, collectedBy: req.user.id };
+      
+      // 🚀 THE FIX: Convert paidAt string to a real Date object
+      if (paymentData.paidAt) {
+        paymentData.paidAt = new Date(paymentData.paidAt);
+      } else {
+        paymentData.paidAt = new Date(); // Default to now if missing
+      }
+
+      // Validate using the schema
+      const data = insertFeePaymentSchema.parse(paymentData);
       const result = await storage.createFeePayment(data);
       res.status(201).json(result);
     } catch (err) {
-      if (err instanceof z.ZodError) return res.status(400).json({ message: err.errors[0].message });
+      console.error("Payment Error:", err);
+      if (err instanceof z.ZodError) {
+        return res.status(400).json({ message: err.errors[0].message });
+      }
       res.status(500).json({ message: "Failed to record payment" });
     }
   });
