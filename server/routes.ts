@@ -281,7 +281,9 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
 
   app.put(api.students.update.path, authMiddleware, async (req, res) => {
     try {
-      const student = await storage.updateStudent(Number(req.params.id), req.body);
+      const data = { ...req.body };
+      if (data.dob) data.dob = new Date(data.dob); // Converts string to Date object
+      const student = await storage.updateStudent(Number(req.params.id), data);
       res.json(student);
     } catch (err) {
       res.status(500).json({ message: "Failed to update student" });
@@ -442,7 +444,9 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
   });
 
   app.put(api.exams.update.path, authMiddleware, async (req, res) => {
-    const result = await storage.updateExam(Number(req.params.id), req.body);
+    const data = { ...req.body };
+    if (data.examDate) data.examDate = new Date(data.examDate);
+    const result = await storage.updateExam(Number(req.params.id), data);
     res.json(result);
   });
 
@@ -548,7 +552,9 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
   });
 
   app.put(api.staff.update.path, authMiddleware, async (req, res) => {
-    const result = await storage.updateStaff(Number(req.params.id), req.body);
+    const data = { ...req.body };
+    if (data.joiningDate) data.joiningDate = new Date(data.joiningDate);
+    const result = await storage.updateStaff(Number(req.params.id), data);
     res.json(result);
   });
 
@@ -767,6 +773,6 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
     res.json(await storage.getRevenueChart());
   });
 
-  await seedDatabase();
+  // await seedDatabase();
   return httpServer;
 }
