@@ -495,11 +495,25 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
     res.json(result);
   });
 
-  app.post(api.fees.createStructure.path, authMiddleware, async (req, res) => {
-    const data = insertFeeStructureSchema.parse(req.body);
-    const result = await storage.createFeeStructure(data);
+  app.post(api.fees.createPayment.path, authMiddleware, async (req: any, res) => {
+  try {
+    const paymentData = { ...req.body, collectedBy: req.user.id };
+    
+    // FIX: Convert the string date from the frontend into a real Date object
+    if (paymentData.paidAt) {
+      paymentData.paidAt = new Date(paymentData.paidAt);
+    } else {
+      paymentData.paidAt = new Date();
+    }
+
+    const data = insertFeePaymentSchema.parse(paymentData);
+    const result = await storage.createFeePayment(data);
     res.status(201).json(result);
-  });
+  } catch (err) {
+    if (err instanceof z.ZodError) return res.status(400).json({ message: err.errors[0].message });
+    res.status(500).json({ message: "Failed to record payment" });
+  }
+});
 
   app.get(api.fees.payments.path, authMiddleware, async (req, res) => {
     const { studentId, month, year, status } = req.query as any;

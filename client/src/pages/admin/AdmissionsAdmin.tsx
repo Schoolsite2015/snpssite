@@ -95,7 +95,9 @@ export default function AdmissionsAdmin() {
                         <td className="py-2 px-3">Class {a.classApplying}</td>
                         <td className="py-2 px-3 text-muted-foreground">{a.fatherName}</td>
                         <td className="py-2 px-3">{a.phone}</td>
-                        <td className="py-2 px-3 text-xs text-muted-foreground">{new Date(a.createdAt!).toLocaleDateString("en-IN")}</td>
+                        <td className="py-2 px-3 text-xs text-muted-foreground">
+                         {a.createdAt ? new Date(a.createdAt).toLocaleDateString("en-IN") : "N/A"}
+                         </td>
                         <td className="py-2 px-3"><Badge className={statusColor(a.status)}>{a.status}</Badge></td>
                         <td className="py-2 px-3">
                           <div className="flex items-center gap-1">
@@ -134,7 +136,7 @@ export default function AdmissionsAdmin() {
                 ["Father's Name", selected.fatherName], ["Mother's Name", selected.motherName],
                 ["Phone", selected.phone], ["Email", selected.email || "—"],
                 ["Address", selected.address], ["Status", selected.status],
-                ["Applied On", new Date(selected.createdAt!).toLocaleDateString("en-IN")],
+                ["Applied On", selected.createdAt ? new Date(selected.createdAt).toLocaleDateString("en-IN") : "N/A"],
                 ...(selected.remarks ? [["Remarks", selected.remarks]] : []),
               ].map(([k, v]) => (
                 <div key={k as string}>

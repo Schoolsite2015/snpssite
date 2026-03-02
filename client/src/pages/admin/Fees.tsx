@@ -30,16 +30,22 @@ export default function Fees() {
   const { toast } = useToast();
 
   const fetchAll = () => {
-    setLoading(true);
-    const h = authHeaders();
-    Promise.all([
-      fetch("/api/fees/payments", { headers: h }).then(r => r.json()),
-      fetch("/api/fees/structures", { headers: h }).then(r => r.json()),
-      fetch("/api/fees/stats", { headers: h }).then(r => r.json()),
-      fetch("/api/students", { headers: h }).then(r => r.json()),
-    ]).then(([p, s, st, stu]) => { setPayments(p); setStructures(s); setStats(st); setStudents(stu); })
-      .finally(() => setLoading(false));
-  };
+  setLoading(true);
+  const h = authHeaders();
+  Promise.all([
+    fetch("/api/fees/payments", { headers: h }).then(r => r.ok ? r.json() : []),
+    fetch("/api/fees/structures", { headers: h }).then(r => r.ok ? r.json() : []),
+    fetch("/api/fees/stats", { headers: h }).then(r => r.ok ? r.json() : null),
+    fetch("/api/students", { headers: h }).then(r => r.ok ? r.json() : []),
+  ]).then(([p, s, st, stu]) => { 
+    setPayments(Array.isArray(p) ? p : []); 
+    setStructures(Array.isArray(s) ? s : []); 
+    setStats(st || { totalRevenue: 0, monthlyRevenue: 0, pendingAmount: 0 }); 
+    setStudents(Array.isArray(stu) ? stu : []); 
+  })
+  .catch(err => console.error("Fetch error:", err))
+  .finally(() => setLoading(false));
+};
   useEffect(fetchAll, []);
 
   const savePayment = async () => {
