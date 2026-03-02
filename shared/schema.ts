@@ -24,8 +24,6 @@ export const users = pgTable("users", {
 
 // ─── STUDENTS ──────────────────────────────────────────────────────────────────
 export const students = pgTable("students", {
-  penNo: text("pen_no"),
-  aadhaarNo: text("aadhaar_no"),
   id: serial("id").primaryKey(),
   admissionNumber: text("admission_number").notNull().unique(),
   name: text("name").notNull(),
@@ -39,6 +37,8 @@ export const students = pgTable("students", {
   phone: text("phone").notNull(),
   email: text("email"),
   address: text("address").notNull(),
+  penNo: text("pen_no"),
+  aadhaarNo: text("aadhaar_no"),
   photoUrl: text("photo_url"),
   isActive: boolean("is_active").notNull().default(true),
   isExStudent: boolean("is_ex_student").notNull().default(false),
@@ -58,6 +58,8 @@ export const admissions = pgTable("admissions", {
   phone: text("phone").notNull(),
   email: text("email"),
   address: text("address").notNull(),
+  penNo: text("pen_no"),
+  aadhaarNo: text("aadhaar_no"),
   documentUrl: text("document_url"),
   status: admissionStatusEnum("status").notNull().default("pending"),
   remarks: text("remarks"),

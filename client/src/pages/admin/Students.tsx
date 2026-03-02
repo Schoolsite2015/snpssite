@@ -20,7 +20,7 @@ const CLASSES = ["All", "Nursery", "KG", "1", "2", "3", "4", "5", "6", "7", "8",
 const emptyStudent = {
   admissionNumber: "", name: "", fatherName: "", motherName: "", dob: "",
   gender: "male" as const, class: "1", section: "A", rollNumber: "",
-  phone: "", email: "", address: "", isActive: true, isExStudent: false,
+  phone: "", email: "", address: "", penNo: "", aadhaarNo: "", isActive: true, isExStudent: false,
 };
 
 export default function Students() {
@@ -117,8 +117,9 @@ export default function Students() {
               <td className="py-2 px-3">
                 <div className="flex items-center gap-1">
                   <Button size="icon" variant="ghost" onClick={() => openEdit(s)} data-testid={`button-edit-student-${s.id}`}><Edit className="w-3.5 h-3.5" /></Button>
+                  <Button size="icon" variant="ghost" onClick={() => window.open(`/api/admin/students/${s.id}/export-pdf`, '_blank')} title="Export PDF"><FileText className="w-3.5 h-3.5" /></Button>
                   {!s.isExStudent && (
-                    <Button size="icon" variant="ghost" onClick={() => generateTC(s.id, s.name)} title="Generate TC" data-testid={`button-tc-${s.id}`}><FileText className="w-3.5 h-3.5" /></Button>
+                    <Button size="icon" variant="ghost" onClick={() => generateTC(s.id, s.name)} title="Generate TC" data-testid={`button-tc-${s.id}`}><GraduationCap className="w-3.5 h-3.5" /></Button>
                   )}
                   <Button size="icon" variant="ghost" className="text-destructive" onClick={() => deleteStudent(s.id)} data-testid={`button-delete-student-${s.id}`}><Trash2 className="w-3.5 h-3.5" /></Button>
                 </div>
@@ -185,6 +186,8 @@ export default function Students() {
               { label: "Phone *", key: "phone", type: "tel", testId: "input-phone" },
               { label: "Roll Number", key: "rollNumber", type: "text", testId: "input-roll" },
               { label: "Section", key: "section", type: "text", testId: "input-section" },
+              { label: "PEN No.", key: "penNo", type: "text" },
+              { label: "Aadhaar No.", key: "aadhaarNo", type: "text" },
             ].map(f => (
               <div key={f.key}>
                 <Label>{f.label}</Label>

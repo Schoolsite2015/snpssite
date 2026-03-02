@@ -127,6 +127,16 @@ export default function Admissions() {
                   </div>
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
+                      <Label htmlFor="penNo">PEN No.</Label>
+                      <Input id="penNo" {...form.register("penNo" as any)} placeholder="Personal Education Number" className="mt-1" />
+                    </div>
+                    <div>
+                      <Label htmlFor="aadhaarNo">Aadhaar No.</Label>
+                      <Input id="aadhaarNo" {...form.register("aadhaarNo" as any)} placeholder="12-digit Aadhaar" className="mt-1" />
+                    </div>
+                  </div>
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div>
                       <Label>Gender *</Label>
                       <Select onValueChange={(v) => form.setValue("gender", v as any)} defaultValue="male">
                         <SelectTrigger className="mt-1" data-testid="select-gender"><SelectValue /></SelectTrigger>

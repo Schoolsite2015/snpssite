@@ -216,7 +216,7 @@ async function seedDatabase() {
       await storage.createUser({
         name: "School Admin",
         email: "admin@stsnpublicschool.com",
-        password: "@Anjani@1234",
+        password: "@Anjani123",
         role: "admin",
         isActive: true,
       });
@@ -511,23 +511,71 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
     try {
       const paymentData = { ...req.body, collectedBy: req.user.id };
       
-      // 🚀 THE FIX: Convert paidAt string to a real Date object
+      // Ensure numeric types are handled correctly
+      if (paymentData.studentId) paymentData.studentId = Number(paymentData.studentId);
+      if (paymentData.year) paymentData.year = Number(paymentData.year);
+
+      // Handle date conversion
       if (paymentData.paidAt) {
         paymentData.paidAt = new Date(paymentData.paidAt);
       } else {
-        paymentData.paidAt = new Date(); // Default to now if missing
+        paymentData.paidAt = new Date();
       }
 
-      // Validate using the schema
       const data = insertFeePaymentSchema.parse(paymentData);
       const result = await storage.createFeePayment(data);
       res.status(201).json(result);
     } catch (err) {
       console.error("Payment Error:", err);
-      if (err instanceof z.ZodError) {
-        return res.status(400).json({ message: err.errors[0].message });
-      }
+      if (err instanceof z.ZodError) return res.status(400).json({ message: err.errors[0].message });
       res.status(500).json({ message: "Failed to record payment" });
+    }
+  });
+
+  // ─── PDF EXPORT ────────────────────────────────────────────────────────────
+  app.get("/api/admin/students/:id/export-pdf", authMiddleware, async (req, res) => {
+    try {
+      const student = await storage.getStudentById(Number(req.params.id));
+      if (!student) return res.status(404).send("Student not found");
+
+      const doc = new PDFDocument({ margin: 50 });
+      res.setHeader("Content-Type", "application/pdf");
+      res.setHeader("Content-Disposition", `attachment; filename=Student_${student.admissionNumber}.pdf`);
+      doc.pipe(res);
+
+      // School Header
+      doc.fontSize(20).text("S.N. PUBLIC SCHOOL", { align: "center" });
+      doc.fontSize(10).text("Varanasi–Lucknow Road, Pindra, UP – 221206", { align: "center" });
+      doc.moveDown();
+      doc.moveTo(50, doc.y).lineTo(550, doc.y).stroke();
+      doc.moveDown();
+
+      doc.fontSize(16).text("STUDENT INFORMATION CARD", { align: "center", underline: true });
+      doc.moveDown();
+
+      const details = [
+        ["Admission No:", student.admissionNumber],
+        ["Name:", student.name],
+        ["Class:", `${student.class}-${student.section}`],
+        ["Roll No:", student.rollNumber || "N/A"],
+        ["PEN No:", student.penNo || "N/A"],
+        ["Aadhaar No:", student.aadhaarNo || "N/A"],
+        ["Father's Name:", student.fatherName],
+        ["Mother's Name:", student.motherName],
+        ["Date of Birth:", student.dob],
+        ["Phone:", student.phone],
+        ["Address:", student.address],
+      ];
+
+      details.forEach(([label, value]) => {
+        doc.fontSize(12).font("Helvetica-Bold").text(label, { continued: true })
+           .font("Helvetica").text(` ${value}`);
+        doc.moveDown(0.5);
+      });
+
+      doc.end();
+    } catch (err) {
+      res.status(500).send("Error generating PDF");
     }
   });
 
